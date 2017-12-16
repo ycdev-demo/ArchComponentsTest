@@ -1,18 +1,14 @@
 apply plugin: 'com.android.application'
+apply from: "${androidModuleCommon}"
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
     defaultConfig {
         applicationId "me.ycdev.android.demo.archcomp"
         versionCode 1
         versionName "1.0"
 
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 26
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -24,18 +20,36 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${rootProject.ext.hamcrestVersion}"
-    compile "com.android.support:design:${rootProject.ext.hamcrestVersion}"
-    compile "com.android.support.constraint:constraint-layout:${rootProject.ext.constraintLayoutVersion}"
+    implementation deps.support.appcompat
+    implementation deps.support.design
+    implementation deps.support.constraintLayout
+    implementation deps.support.cardview
 
-    compile "android.arch.lifecycle:runtime:${rootProject.ext.archLibVersion}"
-    compile "android.arch.lifecycle:extensions:${rootProject.ext.archLibVersion}"
-    annotationProcessor "android.arch.lifecycle:compiler:${rootProject.ext.archLibVersion}"
-    compile "android.arch.persistence.room:runtime:${rootProject.ext.archLibVersion}"
-    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.archLibVersion}"
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.room.runtime
 
-    testCompile "junit:junit:${rootProject.ext.junitVersion}"
-    testCompile "android.arch.persistence.room:testing:${rootProject.ext.archLibVersion}"
+    implementation deps.retrofit
+    implementation deps.retrofitGson
+    implementation deps.butterknife
+    implementation deps.glide
+    implementation deps.glideTrans
+    implementation deps.timber
+    implementation deps.ycdev.androidBase
 
-    androidTestCompile "com.android.support.test.espresso:espresso-core:${rootProject.ext.espressoVersion}"
+    annotationProcessor deps.lifecycle.compiler
+    annotationProcessor deps.room.compiler
+    annotationProcessor deps.butterknifeCompiler
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.hamcrestCore
+    testImplementation deps.test.hamcrestLibrary
+    testImplementation deps.test.mockitoCore
+    testImplementation deps.room.testing
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation deps.test.supportRunner
+    androidTestImplementation deps.test.supportRules
+    // Espresso dependencies
+    androidTestImplementation deps.test.espressoCore
 }
