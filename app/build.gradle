@@ -9,6 +9,16 @@ android {
 
         minSdkVersion 21
         targetSdkVersion 26
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
     buildTypes {
@@ -27,6 +37,7 @@ dependencies {
 
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
+//    implementation deps.lifecycle.commonJava8
     implementation deps.room.runtime
 
     implementation deps.retrofit
@@ -37,7 +48,7 @@ dependencies {
     implementation deps.timber
     implementation deps.ycdev.androidBase
 
-    annotationProcessor deps.lifecycle.compiler
+//    annotationProcessor deps.lifecycle.compiler
     annotationProcessor deps.room.compiler
     annotationProcessor deps.butterknifeCompiler
 
@@ -45,6 +56,7 @@ dependencies {
     testImplementation deps.test.hamcrestCore
     testImplementation deps.test.hamcrestLibrary
     testImplementation deps.test.mockitoCore
+    testImplementation deps.archCore.coreTesting
     testImplementation deps.room.testing
 
     // AndroidJUnitRunner and JUnit Rules

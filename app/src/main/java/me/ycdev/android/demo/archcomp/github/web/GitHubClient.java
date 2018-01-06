@@ -18,8 +18,8 @@ public class GitHubClient {
         mWebService = retrofit.create(GitHubService.class);
     }
 
-    public Response<GitHubUserProfile> getUser(String loginName) throws IOException {
-        return mWebService.userProfile(loginName).execute();
+    public Response<GitHubUserProfile> getUser(String login) throws IOException {
+        return mWebService.userProfile(login).execute();
     }
 
     public Response<List<GitHubRepo>> listRepos(String login) throws IOException {
